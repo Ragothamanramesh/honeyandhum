@@ -153,7 +153,10 @@ input[aria-invalid="true"]{border-color:var(--error)}
   .ch .art,.ch.flip .art{order:-1}
   .ch .art svg{width:100%;max-height:40svh}
   .ch .big{font-size:clamp(1.8rem,7.6vw,2.4rem)}
-  .who,.facts,.locked,.margazhi,.offer,.join,.faq{min-height:100svh;display:flex;flex-direction:column;justify-content:center}
+  .who,.facts,.locked,.margazhi,.offer,.join,.faq,.iso{min-height:100svh;display:flex;flex-direction:column;justify-content:center}
+  .iso .daytitle{padding:calc(env(safe-area-inset-top,0px) + 28px) var(--gutter) 16px}
+  .margazhi .mz{padding-block:40px}
+  .margazhi .dawn{width:180px}
   .margazhi .mz{width:100%}
 }
 .secondcup{animation:second 6s var(--ease-out) infinite}
@@ -166,6 +169,10 @@ input[aria-invalid="true"]{border-color:var(--error)}
 .panel{transform-box:fill-box;transform-origin:50% 50%;animation:panel 6s ease-in-out infinite}
 .pn1{animation-delay:2s}.pn2{animation-delay:4s}
 @keyframes panel{0%,30%,100%{transform:none}10%,22%{transform:translateY(-6px)}}
+/* gentle snapping between full-screen story sections */
+html{scroll-snap-type:y proximity}
+.ch,.who,.iso,.facts,.locked,.margazhi,.offer,.join,.faq{scroll-snap-align:start}
+@media (prefers-reduced-motion:reduce){html{scroll-snap-type:none}}
 /* who it's for */
 .who{padding-block:clamp(4rem,11vw,6rem);text-align:center;background:var(--cream)}
 .who .lede{margin:12px auto 0;color:var(--soft);max-width:38ch;font-size:1.08rem}
@@ -416,8 +423,8 @@ footer b i{color:var(--amber-ink)}
   </div>
 </div></section>
 
-<div class="daytitle"><h2 class="words">A day at the coffeehouse</h2><p class="rv" style="--i:4">One seat, from the first kaapi to the last song. Tap a time to jump.</p></div>
-<section class="iso" id="journey" aria-labelledby="dayh"><h2 class="sr" id="dayh">A day at Honey &amp; Hum, from morning coffee to live music at night</h2>
+<section class="iso" id="journey" aria-labelledby="dayh">
+  <div class="daytitle"><h2 class="words">A day at the coffeehouse</h2><p class="rv" style="--i:4">One seat, from the first kaapi to the last song. Tap a time to jump.</p></div><h2 class="sr" id="dayh">A day at Honey &amp; Hum, from morning coffee to live music at night</h2>
   <div class="isobox" id="isobox"><svg id="isosvg" viewBox="0 0 400 340" role="img" aria-label="An isometric coffeehouse room where one person spends the whole day"></svg></div>
   <div class="isocap"><span class="clk" id="clk">8:00</span><p id="act">Morning. Their usual filter kaapi.</p></div>
   <div class="tl" id="tl"><button type="button" class="on">8 am</button><button type="button">11 am</button><button type="button">2 pm</button><button type="button">5:30 pm</button><button type="button">8:30 pm</button></div>
@@ -664,6 +671,12 @@ const stopStart=i=>{const idx=SEG.findIndex(s=>{const v=s.f(1);return !v.walk&&v
 if(reduce){render(stopStart(4))}else{render(stopStart(0));new IntersectionObserver(es=>es.forEach(en=>en.isIntersecting?play():pause()),{threshold:.25}).observe($('journey'))}
 })();
 
+/* first scroll from the opening screen glides to the story */
+(function(){if(reduce)return;let done=false,user=false;const next=document.getElementById('s2');if(!next)return;
+  const mark=()=>{user=true};['wheel','touchstart','keydown'].forEach(ev=>addEventListener(ev,mark,{passive:true,once:true}));
+  document.addEventListener('click',e=>{if(e.target.closest('a[href^="#"]'))done=true},true);
+  const go=()=>{if(done)return;const y=scrollY;if(y>=innerHeight*.7){done=true;return}if(user&&y>6){done=true;removeEventListener('scroll',go);scrollTo({top:next.offsetTop,behavior:'smooth'})}};
+  addEventListener('scroll',go,{passive:true})})();
 /* ---- form ---- */
 const status=(t,cls)=>{const s=$('status');s.textContent=t;s.className='status '+(cls||'')};
 const pick=n=>{const el=document.querySelector('input[name="'+n+'"]:checked');return el?el.value:''};
