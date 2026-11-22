@@ -238,6 +238,16 @@ html{scroll-snap-type:y proximity}
 .isoart{width:100%;max-width:460px;margin:0 auto}
 .isoart svg{width:100%;height:auto;display:block}
 @media (max-width:760px){.ch .art .isoart svg{max-height:44svh}}
+/* next-section buttons */
+.nextbtn{position:absolute;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:48px;height:48px;border-radius:50%;border:1px solid color-mix(in oklab,currentColor 30%,transparent);background:color-mix(in oklab,var(--cream) 70%,transparent);color:var(--espresso);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:transform var(--t-fast),background-color var(--t-fast)}
+.nextbtn svg{width:20px;height:20px;animation:nudge 2s var(--ease-out) infinite}
+.nextbtn:active{transform:translateX(-50%) scale(.92)}
+.s5 .nextbtn,.offer .nextbtn,.iso .nextbtn{color:var(--honey);background:color-mix(in oklab,var(--espresso) 70%,transparent)}
+@keyframes nudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+.who,.iso,.facts,.locked,.margazhi,.offer{position:relative}
+.who,.facts,.locked,.margazhi{padding-bottom:88px}
+@media (max-width:760px){.ch{padding-bottom:88px}}
+@media (prefers-reduced-motion:reduce){.nextbtn svg{animation:none}}
 /* who it's for */
 .who{padding-block:clamp(4rem,11vw,6rem);text-align:center;background:var(--cream)}
 .who .lede{margin:12px auto 0;color:var(--soft);max-width:38ch;font-size:1.08rem}
@@ -452,7 +462,6 @@ footer b i{color:var(--amber-ink)}
     <div><h1 class="big words">You’ve sat in cafés for hours. Ordering another coffee, <em>just to justify the table.</em></h1><p class="small rv" style="--i:6">Headphones on. Laptop open. Hoping nobody needs your seat.</p></div>
     <div class="art rv" style="--i:1"><div class="isoart" id="iso-s1"></div></div>
   </div>
-  <a class="cue" href="#s2">Keep reading<i aria-hidden="true"></i></a>
 </header>
 
 <main>
@@ -898,6 +907,11 @@ const stopStart=i=>{const idx=SEG.findIndex(s=>{const v=s.f(1);return !v.walk&&v
 if(reduce){render(stopStart(4))}else{render(stopStart(0));new IntersectionObserver(es=>es.forEach(en=>en.isIntersecting?play():pause()),{threshold:.25}).observe($('journey'))}
 })();
 
+/* one tap to the next section */
+(function(){const list=[...document.querySelectorAll('header.ch,section.ch,.who,.iso,.facts,.locked,.margazhi,.offer,#join')];
+  list.forEach((sec,i)=>{const next=list[i+1];if(!next||sec.id==='join')return;const b=document.createElement('button');b.type='button';b.className='nextbtn';
+    b.setAttribute('aria-label','Next section');b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+    b.addEventListener('click',()=>next.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}));sec.appendChild(b)})})();
 /* first scroll from the opening screen glides to the story */
 (function(){if(reduce)return;let done=false,user=false;const next=document.getElementById('s2');if(!next)return;
   const mark=()=>{user=true};['wheel','touchstart','keydown'].forEach(ev=>addEventListener(ev,mark,{passive:true,once:true}));
