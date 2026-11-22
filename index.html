@@ -63,41 +63,38 @@ a,button,input,label.chip{-webkit-tap-highlight-color:transparent}
 .hint i{width:1px;height:28px;background:var(--soft);transform-origin:top;animation:drip 1.8s ease-in-out infinite}
 @keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
 
-/* journey */
-.journey{padding-block:clamp(0px,4vw,40px)}
+/* the day, as one illustrated table */
+.journey{padding-block:clamp(0px,4vw,48px)}
 .stage{max-width:1080px;margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
-.sky{position:relative;height:clamp(440px,74svh,600px);border-radius:28px;overflow:clip;background:var(--sky);color:var(--sky-ink);cursor:pointer}
-@media (max-width:640px){.stage{padding:0}.sky{border-radius:0}}
-.cap{position:absolute;top:9%;left:16px;right:16px;text-align:center}
-.cap h3{font-size:clamp(1.8rem,7vw,3.2rem);line-height:1.05;transition:opacity .3s,transform .3s}
-.cap h3.swap{opacity:0;transform:translateY(8px)}
-.cap p{margin:6px 0 0;font-size:.95rem;opacity:.75}
-.sun{position:absolute;left:50%;top:0;width:clamp(52px,12vw,76px);aspect-ratio:1;margin-left:calc(clamp(52px,12vw,76px) / -2);border-radius:50%;background:var(--honey-2);will-change:transform,opacity}
-.ground{position:absolute;left:0;right:0;bottom:0;height:22%;background:color-mix(in oklab,var(--espresso) 8%,transparent)}
-.stations{position:absolute;left:4%;right:4%;bottom:22%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:end;text-align:center}
-.st{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.32;transition:opacity .4s,transform .4s}
-.st.on{opacity:1;transform:translateY(-4px)}
-.st.past{opacity:.55}
-.st svg{width:clamp(36px,9vw,62px);height:auto}
-.st small{font-size:.8rem}
-.steam path{animation:steam 2s ease-in-out infinite}.steam path+path{animation-delay:.5s}
-@keyframes steam{50%{transform:translateY(-4px);opacity:.3}}
-.screen{fill:transparent;transition:fill .4s}
-.st.on .screen{fill:color-mix(in oklab,var(--amber) 45%,transparent)}
-.vinyl{transform-origin:32px 32px}
-.st.on .vinyl{animation:spin 2.4s linear infinite}
+.scene{position:relative;border-radius:28px;overflow:clip;background:var(--wall);box-shadow:0 30px 60px -40px color-mix(in oklab,var(--espresso) 60%,transparent)}
+.scene svg.scene-art{display:block;width:100%;height:clamp(340px,62svh,520px)}
+.under{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px clamp(18px,4vw,28px);background:var(--wall);color:var(--ink);border-top:1px solid color-mix(in oklab,var(--ink) 12%,transparent)}
+.under .txt{min-width:0}
+.under h3{font-size:clamp(1.5rem,5.6vw,2.2rem);line-height:1.05;transition:opacity .35s,transform .35s}
+.under h3.swap{opacity:0;transform:translateY(6px)}
+.under p{margin:2px 0 0;font-size:.95rem;opacity:.7}
+.dots{display:flex;gap:2px;flex:none}
+.dots button{width:30px;height:36px;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:inherit}
+.dots button i{width:7px;height:7px;border-radius:4px;background:currentColor;opacity:.28;transition:opacity .3s,transform .3s}
+.dots button.on i{opacity:.95;transform:scaleX(2.6)}
+.scene .steam path{opacity:0;transition:opacity .8s}
+.scene.s-coffee .steam path,.scene.s-walk .steam path{opacity:.8;animation:steam 2.6s ease-in-out infinite}
+.scene .steam path+path{animation-delay:.7s}
+@keyframes steam{0%{transform:translateY(4px);opacity:0}40%{opacity:.8}100%{transform:translateY(-10px);opacity:0}}
+.lid{transform-box:fill-box;transform-origin:50% 100%;transition:transform 1.2s cubic-bezier(.3,.8,.3,1)}
+.screenlight{transition:opacity 1s}
+.disc{transform-box:fill-box;transform-origin:50% 50%}
+.scene.s-chill .disc{animation:spin 3s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.walker{position:absolute;left:0;bottom:22%;width:clamp(20px,4vw,30px);height:auto;will-change:transform}
-.walker g{fill:currentColor}
-.notes{position:absolute;right:9%;bottom:44%;display:flex;gap:10px;color:var(--honey)}
-.notes svg{width:22px;height:22px;opacity:0}
-.notes.on svg{animation:float 2.4s ease-out infinite}
-.notes.on svg:nth-child(2){animation-delay:.6s}.notes.on svg:nth-child(3){animation-delay:1.2s}
-@keyframes float{0%{opacity:0;transform:translateY(12px)}30%{opacity:1}100%{opacity:0;transform:translateY(-34px)}}
-.dots{position:absolute;bottom:5%;left:50%;transform:translateX(-50%);display:flex;gap:4px}
-.dots button{width:32px;height:32px;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:inherit}
-.dots button i{width:8px;height:8px;border-radius:4px;background:currentColor;opacity:.3;transition:opacity .3s,transform .3s}
-.dots button.on i{opacity:.9;transform:scaleX(2.4)}
+.notes2 path,.notes2 ellipse{opacity:0}
+.scene.s-chill .notes2 g{animation:float 3s ease-out infinite}
+.scene.s-chill .notes2 g:nth-child(2){animation-delay:1s}.scene.s-chill .notes2 g:nth-child(3){animation-delay:2s}
+.scene.s-chill .notes2 path,.scene.s-chill .notes2 ellipse{opacity:1}
+@keyframes float{0%{opacity:0;transform:translate(0,6px)}25%{opacity:1}100%{opacity:0;transform:translate(10px,-34px)}}
+.stars circle{animation:twinkle 3s ease-in-out infinite}
+.stars circle:nth-child(2n){animation-delay:1.2s}.stars circle:nth-child(3n){animation-delay:2s}
+@keyframes twinkle{50%{opacity:.35}}
+@media (max-width:640px){.stage{padding:0}.scene{border-radius:0;box-shadow:none}}
 
 /* coming soon */
 .tease{padding-block:clamp(3.5rem,10vw,5.5rem);text-align:center}
@@ -200,6 +197,23 @@ footer svg{width:62px;height:auto;margin-bottom:4px}
 footer b{font-family:var(--display);font-weight:400;font-size:1.3rem;color:var(--espresso);letter-spacing:.05em;white-space:nowrap}
 footer b i{color:var(--amber-ink)}
 
+
+/* finish */
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .23 0 0 0 0 .14 0 0 0 0 .09 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero .in{z-index:1}
+.lock::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,color-mix(in oklab,var(--honey) 35%,transparent) 50%,transparent 70%);transform:translateX(-120%);animation:sheen 6s ease-in-out infinite}
+.lock:nth-child(2)::after{animation-delay:1.2s}.lock:nth-child(3)::after{animation-delay:2.4s}
+@keyframes sheen{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+form{gap:0;padding-block:clamp(8px,3vw,16px)}
+.qblock{padding-block:22px;position:relative}
+.qblock+.qblock{margin-top:4px}
+.chip{background:transparent;border-color:color-mix(in oklab,var(--espresso) 18%,transparent)}
+.chip:hover{border-color:color-mix(in oklab,var(--espresso) 45%,transparent)}
+.chip:has(input:checked){background:var(--espresso);border-color:var(--espresso);color:var(--honey)}
+.submit{margin-top:8px}
+.status{margin:12px 0 4px}
+.seats i{border-width:1px}
+@media (prefers-reduced-motion:reduce){.lock::after,.hero::after{animation:none}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
@@ -219,20 +233,41 @@ footer b i{color:var(--amber-ink)}
   </div>
 </header>
 
-<section class="journey" id="journey" aria-label="A day at Honey and Hum: walk in, grab a coffee, get things done, then chill as the evening music starts">
-  <div class="stage"><div class="sky" id="sky">
-    <div class="sun" id="sun" aria-hidden="true"></div>
-    <div class="cap"><h3 id="cap">Walk in</h3><p id="time">8 am</p></div>
-    <div class="ground" aria-hidden="true"></div>
-    <div class="stations" id="stations">
-      <div class="st on"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M16 60V22a16 16 0 0 1 32 0v38"/><circle cx="40" cy="40" r="1.8" fill="currentColor"/></svg><small>Door</small></div>
-      <div class="st"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 30h30v8a15 15 0 0 1-30 0z"/><path d="M44 33h4a5 5 0 0 1 0 10h-5"/><g class="steam"><path d="M24 22c-2-4 2-6 0-10"/><path d="M33 22c-2-4 2-6 0-10"/></g></svg><small>Coffee</small></div>
-      <div class="st"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect class="screen" x="14" y="18" width="36" height="24" rx="2"/><path d="M8 50h48"/></svg><small>Work</small></div>
-      <div class="st"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><g class="vinyl"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="13" opacity=".5"/><circle cx="32" cy="32" r="4" fill="currentColor"/><path d="M32 8v7" stroke-linecap="round"/></g></svg><small>Chill</small></div>
-    </div>
-    <svg class="walker" id="walker" viewBox="0 0 30 58" aria-hidden="true"><g><circle cx="15" cy="8" r="6"/><path d="M8 18h14l2 20h-5l-1 18h-6l-1-18H6z"/></g></svg>
-    <div class="notes" id="notes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="8" cy="18" rx="4" ry="3" transform="rotate(-20 8 18)"/><path d="M11 17V4l8-2v3l-6 1.6V17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="8" cy="18" rx="4" ry="3" transform="rotate(-20 8 18)"/><path d="M11 17V4l8-2v3l-6 1.6V17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="8" cy="18" rx="4" ry="3" transform="rotate(-20 8 18)"/><path d="M11 17V4l8-2v3l-6 1.6V17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="dots" id="dots"><button type="button" class="on" aria-label="8 am, walk in"><i></i></button><button type="button" aria-label="9 am, coffee"><i></i></button><button type="button" aria-label="2 pm, work"><i></i></button><button type="button" aria-label="8 pm, chill"><i></i></button></div>
+<section class="journey" id="journey" aria-label="A day at Honey and Hum, from morning coffee to an evening record">
+  <div class="stage"><div class="scene s-walk" id="scene">
+    <svg class="scene-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <defs>
+        <clipPath id="win"><path d="M126 196V96a54 54 0 0 1 108 0v100z"/></clipPath>
+        <radialGradient id="glow"><stop offset="0" stop-color="#F6D9A0" stop-opacity=".9"/><stop offset="1" stop-color="#F6D9A0" stop-opacity="0"/></radialGradient>
+        <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF4DD" stop-opacity=".55"/><stop offset="1" stop-color="#FFF4DD" stop-opacity="0"/></linearGradient>
+      </defs>
+      <rect width="360" height="300" fill="var(--wall)"/>
+      <g clip-path="url(#win)">
+        <rect x="120" y="36" width="120" height="164" fill="var(--sky)"/>
+        <g class="stars" fill="#F6E9D3" id="stars" opacity="0"><circle cx="150" cy="70" r="1.2"/><circle cx="198" cy="58" r="1"/><circle cx="214" cy="92" r="1.4"/><circle cx="168" cy="108" r="1"/><circle cx="140" cy="128" r="1.1"/><circle cx="222" cy="140" r="1"/></g>
+        <circle id="sun" cx="0" cy="0" r="15" fill="var(--sun)"/>
+        <path d="M126 176c20-8 34 6 54 0s34-10 54-2v30H126z" fill="color-mix(in oklab,var(--sky) 70%,var(--ink) 30%)" opacity=".5"/>
+      </g>
+      <path d="M126 196V96a54 54 0 0 1 108 0v100z" fill="none" stroke="var(--ink)" stroke-width="2.4"/>
+      <path d="M180 42v154M126 140h108" stroke="var(--ink)" stroke-width="1.6" opacity=".6"/>
+      <path d="M118 198h124" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+      <polygon id="beamPoly" points="128,198 232,198 300,300 70,300" fill="url(#beam)" opacity=".8"/>
+      <g id="lamp"><path d="M306 0v58" stroke="var(--ink)" stroke-width="1.6"/><circle id="lampGlow" cx="306" cy="74" r="62" fill="url(#glow)" opacity="0"/><path d="M290 72q16-22 32 0z" fill="var(--ink)"/><circle cx="306" cy="74" r="3.4" fill="#F6D9A0" id="bulb" opacity=".4"/></g>
+      <g id="shelfPlant"><path d="M40 110h46" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/><path d="M52 110v-10h22v10" fill="none" stroke="var(--ink)" stroke-width="1.8"/><path d="M63 100c-2-10-10-14-16-14 4 6 8 10 16 14zm0 0c2-12 10-16 18-16-4 8-10 12-18 16zm0 0c0-10 2-16 2-22" fill="none" stroke="var(--olive-ink)" stroke-width="1.6" stroke-linecap="round"/></g>
+      <rect x="30" y="226" width="300" height="5" rx="2.5" fill="var(--ink)"/>
+      <path d="M62 231v69M298 231v69" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+      <g id="cup"><g class="steam" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"><path d="M76 200c-4-6 4-9 0-15"/><path d="M85 200c-4-6 4-9 0-15"/></g>
+        <path d="M68 206h26v8a13 13 0 0 1-26 0z" fill="var(--ink)"/><path d="M94 209h3a5 5 0 0 1 0 10h-4" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M62 226h38" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/></g>
+      <g id="books"><rect x="108" y="216" width="30" height="5" rx="1" fill="var(--amber)"/><rect x="111" y="211" width="26" height="5" rx="1" fill="var(--ink)" opacity=".8"/></g>
+      <g id="laptop"><rect x="150" y="222" width="64" height="4" rx="2" fill="var(--ink)"/>
+        <g class="lid" id="lid"><rect x="155" y="188" width="54" height="34" rx="3" fill="var(--ink)"/><rect class="screenlight" id="screen" x="159" y="192" width="46" height="26" rx="1.5" fill="#F6D9A0" opacity="0"/></g></g>
+      <g id="player"><rect x="240" y="214" width="56" height="12" rx="2" fill="var(--ink)"/>
+        <g class="disc"><circle cx="262" cy="196" r="18" fill="var(--ink)"/><circle cx="262" cy="196" r="12" fill="none" stroke="var(--wall)" stroke-width=".8" opacity=".5"/><circle cx="262" cy="196" r="5" fill="var(--amber)"/><path d="M262 178v6" stroke="var(--wall)" stroke-width="1.2" opacity=".7"/></g>
+        <path d="M290 186v18l-8 8" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+        <g class="notes2" fill="var(--amber)"><g><ellipse cx="278" cy="170" rx="3.4" ry="2.6"/><path d="M281 170v-12" stroke="var(--amber)" stroke-width="1.4"/></g><g><ellipse cx="290" cy="160" rx="3" ry="2.4"/><path d="M293 160v-11l5 2" fill="none" stroke="var(--amber)" stroke-width="1.4"/></g><g><ellipse cx="270" cy="156" rx="3" ry="2.4"/><path d="M273 156v-11" stroke="var(--amber)" stroke-width="1.4"/></g></g></g>
+    </svg>
+    <div class="under"><div class="txt"><h3 id="cap">Walk in</h3><p id="time">8 am, first light</p></div>
+      <div class="dots" id="dots"><button type="button" class="on" aria-label="Morning"><i></i></button><button type="button" aria-label="Coffee"><i></i></button><button type="button" aria-label="Afternoon"><i></i></button><button type="button" aria-label="Evening"><i></i></button></div></div>
   </div></div>
 </section>
 
@@ -325,40 +360,35 @@ const $=id=>document.getElementById(id);
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 $('seats').innerHTML=Array.from({length:100},(_,i)=>'<i style="animation-delay:'+((i%20)*0.12+Math.floor(i/20)*0.2).toFixed(2)+'s"></i>').join('');
 
-/* ---- journey, driven by scroll ---- */
-const css=getComputedStyle(document.documentElement);
-const tok=n=>css.getPropertyValue(n).trim();
+/* ---- the day, played on its own ---- */
 const hex=h=>{h=h.replace('#','');return [0,2,4].map(i=>parseInt(h.slice(i,i+2),16))};
-const SKY=[[0,hex('#F8E7C8')],[.42,hex(tok('--honey-2')||'#F0C27A')],[.66,hex(tok('--amber')||'#C9955E')],[.84,hex(tok('--espresso')||'#3B2418')],[1,hex(tok('--espresso-2')||'#2a190f')]];
-const STEPS=[{p:0,c:'Walk in',t:'8 am'},{p:.27,c:'Grab a coffee',t:'9 am'},{p:.51,c:'Get things done',t:'2 pm'},{p:.75,c:'Stay and chill',t:'8 pm'}];
-const lerp=(a,b,t)=>a+(b-a)*t, clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
-function skyAt(p){for(let i=1;i<SKY.length;i++){if(p<=SKY[i][0]){const [p0,c0]=SKY[i-1],[p1,c1]=SKY[i],t=(p-p0)/(p1-p0);return c0.map((v,k)=>Math.round(lerp(v,c1[k],t)))}}return SKY[SKY.length-1][1]}
-function walkFrac(p){const seg=[[0,.1,0,0],[.1,.25,0,1],[.25,.35,1,1],[.35,.49,1,2],[.49,.59,2,2],[.59,.73,2,3],[.73,1,3,3]];
-  for(const [a,b,i,j] of seg){if(p<=b){const t=clamp((p-a)/(b-a));return {i:lerp(i,j,t),moving:i!==j&&t>0&&t<1}}}return {i:3,moving:false}}
-let last=-1;const sky=$('sky'),sun=$('sun'),walker=$('walker'),stations=[...$('stations').children];
+const mix=(stops,p)=>{for(let i=1;i<stops.length;i++){if(p<=stops[i][0]){const [p0,a]=stops[i-1],[p1,b]=stops[i],t=(p-p0)/(p1-p0);return 'rgb('+a.map((v,k)=>Math.round(v+(b[k]-v)*t)).join(',')+')'}}return 'rgb('+stops[stops.length-1][1].join(',')+')'};
+const SKY=[[0,hex('#F9DDB0')],[.25,hex('#FBEBD0')],[.5,hex('#F7DDB0')],[.64,hex('#E9A866')],[.74,hex('#8A5A3A')],[.84,hex('#2a1c16')],[1,hex('#1e140f')]];
+const WALL=[[0,hex('#F4E5CB')],[.55,hex('#F1DDBC')],[.7,hex('#C9955E')],[.82,hex('#3a2619')],[1,hex('#2f1f15')]];
+const INK=[[0,hex('#3B2418')],[.7,hex('#3B2418')],[.8,hex('#F6E9D3')],[1,hex('#F6E9D3')]];
+const STEPS=[{p:0,c:'Walk in',t:'8 am, first light',k:'walk'},{p:.2,c:'Grab a coffee',t:'9 am, the first pour',k:'coffee'},{p:.42,c:'Get things done',t:'2 pm, heads down',k:'work'},{p:.72,c:'Stay and chill',t:'8 pm, the record starts',k:'chill'}];
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const scene=$('scene'),sun=$('sun'),cap=$('cap');let last=-1;
 function render(p){
-  const c=skyAt(p),dark=p>.7;sky.style.setProperty('--sky','rgb('+c.join(',')+')');sky.style.setProperty('--sky-ink',dark?tok('--honey'):tok('--espresso'));
-  const H=sky.clientHeight,W=sky.clientWidth;
-  const y=p<.58?lerp(.3,.4,p/.58):p<.72?lerp(.4,.76,(p-.58)/.14):.3;
-  sun.style.transform='translateY('+(y*H).toFixed(1)+'px)';
-  sun.style.opacity=p<.64?1:p<.72?lerp(1,0,(p-.64)/.08):clamp((p-.75)/.08);
-  sun.style.background=p<.72?(p<.45?tok('--honey-2'):tok('--amber')):tok('--honey');
-  const w=walkFrac(p),left=W*0.04,span=W*0.92,cell=span/4,ww=walker.clientWidth;
-  const iw=stations[0].querySelector('svg').clientWidth;const x=left+cell*w.i+cell*0.5-iw/2-ww-4;
-  const bob=w.moving&&!reduce?Math.sin(p*260)*2:0;
-  walker.style.transform='translate('+x.toFixed(1)+'px,'+bob.toFixed(1)+'px)';
+  scene.style.setProperty('--sky',mix(SKY,p));scene.style.setProperty('--wall',mix(WALL,p));scene.style.setProperty('--ink',mix(INK,p));
+  scene.style.setProperty('--sun',p<.6?'#F3B95F':'#E9894A');scene.style.setProperty('--olive-ink',p>.78?'#C9B98A':'#6B6B4C');
+  const a=Math.PI*(1-clamp(p/.72));const sx=180+70*Math.cos(a),sy=200-110*Math.sin(a)*1-0;
+  sun.setAttribute('transform','translate('+sx.toFixed(1)+' '+(p<.72?sy:230).toFixed(1)+')');
+  $('stars').setAttribute('opacity',clamp((p-.8)/.06).toFixed(2));
+  $('beamPoly').setAttribute('opacity',(p<.6?.8:clamp(.8-(p-.6)/.12*.8)).toFixed(2));
+  const lamp=clamp((p-.64)/.1);$('lampGlow').setAttribute('opacity',lamp.toFixed(2));$('bulb').setAttribute('opacity',(.4+lamp*.6).toFixed(2));
+  const open=p>.36&&p<.76;$('lid').style.transform='scaleY('+(open?1:.06)+')';$('screen').style.opacity=open&&p>.4?.85:0;
   let s=0;STEPS.forEach((st,i)=>{if(p>=st.p)s=i});
-  stations.forEach((el,i)=>{el.classList.toggle('on',i===s);el.classList.toggle('past',i<s)});
-  [...$('dots').children].forEach((el,i)=>el.classList.toggle('on',i===s));
-  $('notes').classList.toggle('on',s===3);
-  if(s!==last){last=s;const cap=$('cap');cap.classList.add('swap');setTimeout(()=>{cap.textContent=STEPS[s].c;$('time').textContent=STEPS[s].t;cap.classList.remove('swap')},reduce?0:160)}
+  if(s!==last){last=s;scene.className='scene s-'+STEPS[s].k;[...$('dots').children].forEach((el,i)=>el.classList.toggle('on',i===s));
+    cap.classList.add('swap');setTimeout(()=>{cap.textContent=STEPS[s].c;$('time').textContent=STEPS[s].t;cap.classList.remove('swap')},reduce?0:180)}
 }
-const DUR=16000;let t0=performance.now(),off=0,running=false,raf=0;
-function frame(now){const p=((now-t0+off)%DUR)/DUR;render(p);raf=requestAnimationFrame(frame)}
+const art=scene.querySelector('svg');function fit(){const r=art.getBoundingClientRect();art.setAttribute('preserveAspectRatio',r.width/r.height>1.25?'xMidYMax meet':'xMidYMax slice')}fit();addEventListener('resize',fit);
+const DUR=18000;let t0=performance.now(),off=0,running=false,raf=0;
+function frame(now){render(((now-t0+off)%DUR)/DUR);raf=requestAnimationFrame(frame)}
 function play(){if(running||reduce)return;running=true;t0=performance.now();raf=requestAnimationFrame(frame)}
 function pause(){if(!running)return;running=false;cancelAnimationFrame(raf);off=(off+performance.now()-t0)%DUR}
-[...$('dots').children].forEach((b,i)=>b.addEventListener('click',e=>{e.stopPropagation();const p=[0,.25,.49,.73][i];if(reduce){render(p+.01);return}off=p*DUR;t0=performance.now();if(!running)play()}));
-if(reduce){render(.8)}else{render(0);new IntersectionObserver(es=>es.forEach(en=>en.isIntersecting?play():pause()),{threshold:.35}).observe($('journey'))}
+[...$('dots').children].forEach((b,i)=>b.addEventListener('click',()=>{const p=STEPS[i].p+.02;if(reduce){render(p);return}off=p*DUR;t0=performance.now();if(!running)play()}));
+if(reduce){render(.8)}else{render(0);new IntersectionObserver(es=>es.forEach(en=>en.isIntersecting?play():pause()),{threshold:.3}).observe($('journey'))}
 
 /* ---- form ---- */
 const status=(t,cls)=>{const s=$('status');s.textContent=t;s.className='status '+(cls||'')};
