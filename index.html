@@ -101,7 +101,7 @@ a,button,input,label.chip{-webkit-tap-highlight-color:transparent}
 .tease p.sub{margin:10px auto 0;color:var(--soft);max-width:34ch}
 .locks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
 @media (max-width:640px){.locks{grid-template-columns:minmax(0,1fr)}}
-.lock{position:relative;border-radius:22px;overflow:clip;aspect-ratio:4/5;transition:transform .4s}
+.lock{position:relative;width:100%;border-radius:22px;overflow:clip;aspect-ratio:4/5;transition:transform .4s}
 @media (max-width:640px){.lock{aspect-ratio:16/8}}
 .lock:hover{transform:translateY(-6px)}
 .art{position:absolute;inset:-20px;filter:blur(16px)}
@@ -198,6 +198,22 @@ footer b{font-family:var(--display);font-weight:400;font-size:1.3rem;color:var(-
 footer b i{color:var(--amber-ink)}
 
 
+/* motion system: one rhythm everywhere */
+:root{--ease-out:cubic-bezier(.2,.8,.2,1);--ease-in:cubic-bezier(.5,0,.75,0);--t-fast:180ms;--t-mid:280ms;--t-slow:700ms}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.js .reveal{opacity:0;transform:translateY(18px)}
+.js .reveal.in{opacity:1;transform:none;transition:opacity var(--t-slow) var(--ease-out),transform var(--t-slow) var(--ease-out);transition-delay:calc(var(--i,0) * 70ms)}
+.dots button{width:44px;height:44px}
+.req{color:var(--amber-ink)}
+.ferr{margin:0;font-size:.88rem;color:var(--error);min-height:0}
+.ferr:empty{display:none}
+input[aria-invalid="true"]{border-color:var(--error)}
+.spin{width:18px;height:18px;border-radius:50%;border:2px solid color-mix(in oklab,var(--honey) 35%,transparent);border-top-color:var(--honey);animation:rot .8s linear infinite;margin-right:10px;display:none}
+.busy .spin{display:inline-block}
+@keyframes rot{to{transform:rotate(360deg)}}
+.cta,.submit,.chip{touch-action:manipulation}
+.seats.lit i{animation:light .5s var(--ease-out) both;animation-delay:calc(var(--n) * 12ms)}
+@keyframes light{from{background-color:var(--amber);transform:scale(.6)}to{background-color:transparent;transform:none}}
 /* finish */
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .23 0 0 0 0 .14 0 0 0 0 .09 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
 .hero .in{z-index:1}
@@ -233,7 +249,7 @@ form{gap:0;padding-block:clamp(8px,3vw,16px)}
   </div>
 </header>
 
-<section class="journey" id="journey" aria-label="A day at Honey and Hum, from morning coffee to an evening record">
+<section class="journey" id="journey" aria-labelledby="dayh"><h2 class="sr" id="dayh">A day at Honey &amp; Hum</h2>
   <div class="stage"><div class="scene s-walk" id="scene">
     <svg class="scene-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       <defs>
@@ -272,27 +288,27 @@ form{gap:0;padding-block:clamp(8px,3vw,16px)}
 </section>
 
 <section class="in tease">
-  <h2>Some things are worth the wait</h2>
-  <p class="sub">Founding members see them first.</p>
+  <h2 class="reveal">Some things are worth the wait</h2>
+  <p class="sub reveal" style="--i:1">Founding members see them first.</p>
   <div class="locks">
-    <div class="lock"><div class="art a1"></div><div class="veil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>The space</b><span>Unlocks at opening</span></div></div>
-    <div class="lock"><div class="art a2"></div><div class="veil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>The menu</b><span>Unlocks at opening</span></div></div>
-    <div class="lock"><div class="art a3"></div><div class="veil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>The nights</b><span>Unlocks at opening</span></div></div>
+    <div class="lock reveal" style="--i:1"><div class="art a1"></div><div class="veil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>The space</b><span>Unlocks at opening</span></div></div>
+    <div class="lock reveal" style="--i:2"><div class="art a2"></div><div class="veil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>The menu</b><span>Unlocks at opening</span></div></div>
+    <div class="lock reveal" style="--i:3"><div class="art a3"></div><div class="veil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>The nights</b><span>Unlocks at opening</span></div></div>
   </div>
 </section>
 
 <section class="perks"><div class="in">
-  <h2>A head start for the first 100</h2>
+  <h2 class="reveal">A head start for the first 100</h2>
   <div class="icons">
-    <div class="ic"><div class="bub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9h12v4a6 6 0 0 1-12 0z"/><path d="M17 10.5h1.5a2 2 0 0 1 0 4H17"/><path d="M9 6c-.7-1 .7-2 0-3M12 6c-.7-1 .7-2 0-3"/></svg></div><b>First cup on us</b></div>
-    <div class="ic"><div class="bub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 14h4M15 10h2"/></svg></div><b>Member card</b></div>
-    <div class="ic"><div class="bub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/></svg></div><b>Opening night</b></div>
-    <div class="ic"><div class="bub"><span class="q" aria-hidden="true">?</span></div><b>A few surprises</b></div>
+    <div class="ic reveal" style="--i:1"><div class="bub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9h12v4a6 6 0 0 1-12 0z"/><path d="M17 10.5h1.5a2 2 0 0 1 0 4H17"/><path d="M9 6c-.7-1 .7-2 0-3M12 6c-.7-1 .7-2 0-3"/></svg></div><b>First cup on us</b></div>
+    <div class="ic reveal" style="--i:2"><div class="bub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 14h4M15 10h2"/></svg></div><b>Member card</b></div>
+    <div class="ic reveal" style="--i:3"><div class="bub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/></svg></div><b>Opening night</b></div>
+    <div class="ic reveal" style="--i:4"><div class="bub"><span class="q" aria-hidden="true">?</span></div><b>A few surprises</b></div>
   </div>
 </div></section>
 
 <section class="in join" id="join">
-  <h2>Save a founding seat</h2>
+  <h2 class="reveal">Save a founding seat</h2>
   <div class="seats" aria-hidden="true" id="seats"></div>
   <p class="seatcap">100 seats. Free to join, about a minute.</p>
   <div id="formWrap">
@@ -335,15 +351,15 @@ form{gap:0;padding-block:clamp(8px,3vw,16px)}
       <input id="area" name="area" type="text" maxlength="60" placeholder="Adyar, Anna Nagar, OMR…">
     </div>
     <div class="qblock"><p class="qt"><span>5</span>Where should we send your seat?</p>
-      <label class="f" for="name">Name<input id="name" name="name" type="text" autocomplete="name" maxlength="80" required></label>
+      <label class="f" for="name"><span>Name <span class="req" aria-hidden="true">*</span></span><input id="name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="nameErr"></label><p class="ferr" id="nameErr" aria-live="polite"></p>
       <div class="fields">
-        <label class="f" for="email">Email<input id="email" name="email" type="email" autocomplete="email" maxlength="120" required></label>
+        <div style="display:flex;flex-direction:column;gap:6px;min-width:0"><label class="f" for="email"><span>Email <span class="req" aria-hidden="true">*</span></span><input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="120" required aria-describedby="emailErr"></label><p class="ferr" id="emailErr" aria-live="polite"></p></div>
         <label class="f" for="phone">WhatsApp, optional<input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="20" placeholder="+91"></label>
       </div>
       <label class="consent" for="ok"><input id="ok" name="consent" type="checkbox">Message me when the doors open.</label>
     </div>
     <input class="hp" type="text" id="hp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <button class="submit" type="submit" id="go">Save my seat</button>
+    <button class="submit" type="submit" id="go"><span class="spin" aria-hidden="true"></span><span id="goTxt">Save my seat</span></button>
     <p class="status" id="status" role="status" aria-live="polite"></p>
   </form>
   </div>
@@ -358,7 +374,11 @@ const DONE_MARK="<defs><clipPath id=\"sky-done\"><rect x=\"0\" y=\"0\" width=\"1
 const NOTE="<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><ellipse cx=\"8\" cy=\"18\" rx=\"4\" ry=\"3\" transform=\"rotate(-20 8 18)\"/><path d=\"M11 17V4l8-2v3l-6 1.6V17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>";
 const $=id=>document.getElementById(id);
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-$('seats').innerHTML=Array.from({length:100},(_,i)=>'<i style="animation-delay:'+((i%20)*0.12+Math.floor(i/20)*0.2).toFixed(2)+'s"></i>').join('');
+$('seats').innerHTML=Array.from({length:100},(_,i)=>'<i style="--n:'+i+';animation-delay:'+((i%20)*0.12+Math.floor(i/20)*0.2).toFixed(2)+'s"></i>').join('');
+document.documentElement.classList.add('js');
+if(!reduce&&'IntersectionObserver' in window){const ro=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');ro.unobserve(en.target)}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+  const so=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){const s=$('seats');s.classList.add('lit');setTimeout(()=>s.classList.remove('lit'),1800);so.disconnect()}}),{threshold:.6});so.observe($('seats'))}
+else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
 
 /* ---- the day, played on its own ---- */
 const hex=h=>{h=h.replace('#','');return [0,2,4].map(i=>parseInt(h.slice(i,i+2),16))};
@@ -397,17 +417,21 @@ document.querySelectorAll('input[name="pay"]').forEach(r=>r.addEventListener('ch
 const pick=n=>{const el=document.querySelector('input[name="'+n+'"]:checked');return el?el.value:''};
 function collect(){const pay=pick('pay');return {name:$('name').value.trim(),email:$('email').value.trim(),phone:$('phone').value.trim(),area:$('area').value.trim(),
   uses:[...document.querySelectorAll('input[name="uses"]:checked')].map(i=>i.value),drink:pick('drink'),wouldPay:pay,price:['Yes','Maybe'].includes(pay)?pick('price'):'',consent:$('ok').checked,hp:$('hp').value}}
-function valid(d){if(!d.name){status('Add your name so we know who to welcome.','err');$('name').focus();return false}
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)){status('That email looks incomplete.','err');$('email').focus();return false}return true}
+const EMAIL=/^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+function fieldErr(id,msg){const i=$(id),e=$(id+'Err');e.textContent=msg||'';i.setAttribute('aria-invalid',msg?'true':'false');return !msg}
+const checkName=()=>fieldErr('name',$('name').value.trim()?'':'Add your name so we know who to welcome.');
+const checkEmail=()=>fieldErr('email',EMAIL.test($('email').value.trim())?'':'Check your email, for example name@gmail.com.');
+$('name').addEventListener('blur',()=>{if($('name').value)checkName()});$('email').addEventListener('blur',()=>{if($('email').value)checkEmail()});
+function valid(d){const a=checkName(),b=checkEmail();if(!a){$('name').focus();return false}if(!b){$('email').focus();return false}status('');return true}
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function showDone(d){$('formWrap').innerHTML='<div class="done"><div class="burst" id="burst"></div><svg class="m" viewBox="22 52 56 46" aria-hidden="true">'+DONE_MARK+'</svg><h3>You’re in, '+esc((d.name||'friend').split(' ')[0])+'.</h3><p>See you on opening night.</p></div>';
   if(!reduce){$('burst').innerHTML=Array.from({length:12},(_,i)=>NOTE.replace('<svg ','<svg style="left:'+(6+i*7.8)+'%;animation-delay:'+(i*0.12).toFixed(2)+'s;--r:'+(i%2?'':'-')+(10+i*3)+'deg" ')).join('')}
   $('join').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})}
 $('f').addEventListener('submit',async e=>{e.preventDefault();const d=collect();if(!valid(d))return;
   const q={...d,uses:d.uses.join(', '),pay:d.wouldPay,consent:d.consent?'yes':''};delete q.wouldPay;
-  $('go').disabled=true;status('Saving your seat\u2026');
+  $('go').disabled=true;$('go').classList.add('busy');$('goTxt').textContent='Saving your seat';status('');
   try{await fetch(SIGNUP_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(q)});showDone(d)}
-  catch(err){$('go').disabled=false;status("Your seat didn't save. Check your connection and try again.",'err')}});
+  catch(err){$('go').disabled=false;$('go').classList.remove('busy');$('goTxt').textContent='Save my seat';status("Your seat didn't save. Check your connection and try again.",'err')}});
 </script>
 
 </body>
